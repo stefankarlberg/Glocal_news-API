@@ -54,6 +54,7 @@ Acceptance and component tests can be found in the `cypress/integration` and `sr
 * API with [Ruby on Rails](https://rubyonrails.org/) version 5.2.3
 * API with [Ruby](https://www.ruby-lang.org/en/) version 2.4.1
 * Client with [React](https://reactjs.org/)
+* Client was styled using [Semantic UI](https://react.semantic-ui.com/)
 
 # Authors
 
