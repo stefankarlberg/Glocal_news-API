@@ -4,7 +4,7 @@ Rails.application.routes.draw do
       resources :pings, only: [:index], constraints: { format: 'json' }
     end
     namespace :v1 do
-      resources :article, only: [:create, :index]
+      resources :articles, only: [:create, :index]
     end
   end
 end
