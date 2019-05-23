@@ -1,4 +1,5 @@
-[coverals & semaphore badges will go here]
+[![Coverage Status](https://coveralls.io/repos/github/CraftAcademy/Glocal_news-API/badge.svg?branch=development)](https://coveralls.io/github/CraftAcademy/Glocal_news-API?branch=development)
+[![Build Status](https://semaphoreci.com/api/v1/craftacademy/glocal_news-api/branches/development/badge.svg)](https://semaphoreci.com/craftacademy/glocal_news-api)
 
 # Project Title
 
