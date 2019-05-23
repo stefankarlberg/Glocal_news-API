@@ -8,7 +8,7 @@ RSpec.describe Api::V1::ArticlesController, type: :request do
       5.times { FactoryBot.create(:article)}
     end
 
-    it 'returns an article' do
+    it 'returns a collection of articles' do
       get '/api/v1/articles', headers: headers
       expect(json_response['entries'].count).to eq 5
     end
