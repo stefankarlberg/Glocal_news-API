@@ -20,7 +20,7 @@ RSpec.describe Api::V1::ArticlesController, type: :request do
 
   describe 'GET /api/v1/article' do
     before do
-      article.create(data: { 
+      Article.create({ 
         title: 'Gothenburg is a great city', 
         ingress: 'The Gothenburg population is the most happy people in Sweden according to Zane.', 
         body: 'The Gothenburg population is the most happy people in Sweden according to Zane.',
