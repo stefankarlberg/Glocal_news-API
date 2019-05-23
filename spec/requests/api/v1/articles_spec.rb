@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::ArticlesController, type: :request do
   let(:headers) { { HTTP_ACCEPT: 'application/json' } }
+  let(:article) {FactoryBot.create(:article)}
 
   describe 'GET /api/v1/article' do
     before do
@@ -18,4 +19,27 @@ RSpec.describe Api::V1::ArticlesController, type: :request do
       expect(response.status).to eq 200
     end
   end
+
+  describe 'POST /api/v1/article' do
+    it 'cretes an article entry' do
+      post '/api/v1/article', params: {
+        article: { 
+          title: 'Gothenburg is great', 
+          ingress: 'According to many', 
+          body: 'Not many people really think that Stockholm is a better place to live in', 
+          image: 'https://assets.craftacademy.se/images/people/students_group.png'
+        }
+      }, headers: headers
+
+      entry = Article.last
+      expected_outcome = {
+        'title' => article.title, 
+        'ingress' => article.ingress,
+        'body' => article.body,
+        'image' => articl.image
+      }
+      expect(entry.data).to eq expected_outcome
+    end
+  end
+
 end
