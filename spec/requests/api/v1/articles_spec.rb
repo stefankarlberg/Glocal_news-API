@@ -18,4 +18,34 @@ RSpec.describe Api::V1::ArticlesController, type: :request do
       expect(response.status).to eq 200
     end
   end
+
+  describe 'POST /api/v1/articles' do
+    it 'cretes an article entry' do
+      post '/api/v1/articles', params: {
+        article: { 
+          title: 'Gothenburg is great', 
+          ingress: 'According to many', 
+          body: 'Not many people really think that Stockholm is a better place to live in', 
+          image: 'https://assets.craftacademy.se/images/people/students_group.png',
+          written_by: 'Steffe Karlberg'
+        }
+      }, headers: headers
+
+      expect(json_response['message']).to eq 'Successfully created'
+      expect(response.status).to eq 200
+    end
+
+    it 'can not be created without all fields filled in' do
+      post '/api/v1/articles', params: {
+        article: {
+          title: "Stockolm is not too bad",
+          written_by: 'Steffe Karlberg'
+        }
+      }, headers: headers
+      
+      expect(json_response['error']).to eq ["Ingress can't be blank", "Body can't be blank", "Image can't be blank"]
+      expect(response.status).to eq 422
+    end
+
+  end
 end
