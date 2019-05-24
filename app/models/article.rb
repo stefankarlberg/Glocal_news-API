@@ -1,3 +1,3 @@
 class Article < ApplicationRecord
-  validates_presence_of :title, :ingress, :body, :image
+  validates_presence_of :title, :ingress, :body, :image, :written_by
 end
