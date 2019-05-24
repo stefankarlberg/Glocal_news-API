@@ -17,10 +17,15 @@ RSpec.describe Api::V1::ArticlesController, type: :request do
       get '/api/v1/articles', headers: headers
       expect(response.status).to eq 200
     end
+
+    it 'returns a specific article and shows body' do
+      get '/api/v1/articles/:id', headers: headers
+      expect(json_response['entries'].count).to eq 1
+    end
   end
 
   describe 'POST /api/v1/articles' do
-    it 'cretes an article entry' do
+    it 'creates an article entry' do
       post '/api/v1/articles', params: {
         article: { 
           title: 'Gothenburg is great', 
