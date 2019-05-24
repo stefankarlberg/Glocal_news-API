@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.describe Api::V1::ArticlesController, type: :request do
   let(:headers) { { HTTP_ACCEPT: 'application/json' } }
 
-  describe 'GET /api/v1/article' do
+  describe 'GET /api/v1/articles' do
     before do
-      5.times { FactoryBot.create(:article)}
+      5.times { FactoryBot.create(:article) }
     end
 
     it 'returns a collection of articles' do
@@ -19,8 +19,23 @@ RSpec.describe Api::V1::ArticlesController, type: :request do
     end
   end
 
+  describe 'GET /api/v1/articles/id' do
+    let(:article) { FactoryBot.create(:article)}
+    before do
+      get "/api/v1/articles/"+"#{article.id}", headers: headers
+    end
+
+    it 'returns a specific article' do
+      expect(json_response['id']).to eq article.id
+    end
+
+    it 'returns 200 response' do
+      expect(response.status).to eq 200
+    end
+  end
+
   describe 'POST /api/v1/articles' do
-    it 'cretes an article entry' do
+    it 'creates an article entry' do
       post '/api/v1/articles', params: {
         article: { 
           title: 'Gothenburg is great', 
