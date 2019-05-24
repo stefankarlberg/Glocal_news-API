@@ -26,7 +26,8 @@ RSpec.describe Api::V1::ArticlesController, type: :request do
           title: 'Gothenburg is great', 
           ingress: 'According to many', 
           body: 'Not many people really think that Stockholm is a better place to live in', 
-          image: 'https://assets.craftacademy.se/images/people/students_group.png'
+          image: 'https://assets.craftacademy.se/images/people/students_group.png',
+          written_by: 'Steffe Karlberg'
         }
       }, headers: headers
 
@@ -37,7 +38,8 @@ RSpec.describe Api::V1::ArticlesController, type: :request do
     it 'can not be created without all fields filled in' do
       post '/api/v1/articles', params: {
         article: {
-          title: "Stockolm is not too bad"
+          title: "Stockolm is not too bad",
+          written_by: 'Steffe Karlberg'
         }
       }, headers: headers
       

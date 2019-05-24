@@ -17,7 +17,7 @@ class Api::V1::ArticlesController < ApplicationController
   private
 
   def article_params
-    params.require(:article).permit(:title, :ingress, :body, :image)
+    params.require(:article).permit(:title, :ingress, :body, :image, :written_by)
   end
   
 end
