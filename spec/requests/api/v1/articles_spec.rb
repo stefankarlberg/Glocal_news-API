@@ -31,14 +31,8 @@ RSpec.describe Api::V1::ArticlesController, type: :request do
         }
       }, headers: headers
 
-      entry = Article.last
-      expected_outcome = {
-        'title' => entry.title, 
-        'ingress' => entry.ingress,
-        'body' => entry.body,
-        'image' => entry.image
-      }
-      expect(entry).to eq expected_outcome
+      expect(json_response['message']).to eq 'Successfully created'
+      expect(response.status).to eq 200
     end
   end
 
