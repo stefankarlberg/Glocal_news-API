@@ -16,7 +16,7 @@ class Api::V1::ArticlesController < ApplicationController
 
   def show
     @article = Article.find(params[:id])
-    render json: { data: @article }
+    render json: @article, serializer: Articles::ShowSerializer
   end
 
   private

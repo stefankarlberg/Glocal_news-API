@@ -26,7 +26,7 @@ RSpec.describe Api::V1::ArticlesController, type: :request do
     end
 
     it 'returns a specific article' do
-      expect(json_response['data']['id']).to eq article.id
+      expect(json_response['id']).to eq article.id
     end
 
     it 'returns 200 response' do
