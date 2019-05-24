@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::ArticlesController, type: :request do
   let(:headers) { { HTTP_ACCEPT: 'application/json' } }
-  # let(:article) {FactoryBot.create(:article)}
 
   describe 'GET /api/v1/article' do
     before do
@@ -34,6 +33,17 @@ RSpec.describe Api::V1::ArticlesController, type: :request do
       expect(json_response['message']).to eq 'Successfully created'
       expect(response.status).to eq 200
     end
-  end
 
+    it 'can not be created without all fields filled in' do
+      post '/api/v1/articles', params: {
+        article: {
+          title: "Stockolm is not too bad"
+        }
+      }, headers: headers
+      
+      expect(json_response['error']).to eq ["Ingress can't be blank", "Body can't be blank", "Image can't be blank"]
+      expect(response.status).to eq 422
+    end
+
+  end
 end
