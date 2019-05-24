@@ -5,6 +5,7 @@ RSpec.describe Article, type: :model do
     it { is_expected.to have_db_column :ingress}
     it { is_expected.to have_db_column :body }
     it { is_expected.to have_db_column :image }
+    it { is_expected.to have_db_column :written_by }
   end
 
   describe 'Validations' do 
@@ -12,6 +13,7 @@ RSpec.describe Article, type: :model do
     it { is_expected.to validate_presence_of(:ingress) }
     it { is_expected.to validate_presence_of(:body) }
     it { is_expected.to validate_presence_of(:image) }
+    it { is_expected.to validate_presence_of(:written_by) }
   end
 
   describe 'Factory' do
