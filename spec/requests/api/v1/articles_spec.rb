@@ -10,7 +10,7 @@ RSpec.describe Api::V1::ArticlesController, type: :request do
 
     it 'returns a collection of articles' do
       get '/api/v1/articles', headers: headers
-      expect(json_response['entries'].count).to eq 5
+      expect(json_response['data'].count).to eq 5
     end
 
     it 'returns 200 response' do
