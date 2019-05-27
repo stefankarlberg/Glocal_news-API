@@ -35,7 +35,7 @@ RSpec.describe Api::V1::ArticlesController, type: :request do
   end
 
   describe 'POST /api/v1/articles' do
-    it 'creates an article entry' do
+    before do
       post '/api/v1/articles', params: {
         article: { 
           title: 'Gothenburg is great', 
@@ -45,8 +45,15 @@ RSpec.describe Api::V1::ArticlesController, type: :request do
           written_by: 'Steffe Karlberg'
         }
       }, headers: headers
+    end
 
+    it 'creates an article entry' do
       expect(json_response['message']).to eq 'Successfully created'
+      expect(response.status).to eq 200
+    end
+
+    it 'send back into the response the newly created article information' do
+      expect(json_response['data']).to eq ''
       expect(response.status).to eq 200
     end
 
