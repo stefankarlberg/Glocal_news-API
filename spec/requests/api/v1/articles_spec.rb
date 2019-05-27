@@ -37,7 +37,7 @@ RSpec.describe Api::V1::ArticlesController, type: :request do
   describe 'POST /api/v1/articles' do
     let(:category) { FactoryBot.create(:category) }
     it 'creates an article entry' do
-     post '/api/v1/articles', params: {
+      post '/api/v1/articles', params: {
         article: { 
           title: 'Gothenburg is great', 
           ingress: 'According to many', 
@@ -62,6 +62,5 @@ RSpec.describe Api::V1::ArticlesController, type: :request do
       expect(json_response['error']).to eq ["Category must exist", "Ingress can't be blank", "Body can't be blank", "Image can't be blank", "Category can't be blank"]
       expect(response.status).to eq 422
     end
-
   end
 end
