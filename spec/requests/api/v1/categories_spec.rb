@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe Api::V1::CategoriesController, type: :request do
   let(:headers) { { HTTP_ACCEPT: 'application/json' } }
 
@@ -18,7 +16,7 @@ RSpec.describe Api::V1::CategoriesController, type: :request do
         "Style",
         "Food",
         "Travel",
-        "Real State"
+        "Real Estate"
       ]
       category_list.each do |name|
         FactoryBot.create(:category, name: name )
