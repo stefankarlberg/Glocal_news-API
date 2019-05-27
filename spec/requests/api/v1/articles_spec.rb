@@ -35,32 +35,43 @@ RSpec.describe Api::V1::ArticlesController, type: :request do
   end
 
   describe 'POST /api/v1/articles' do
-    it 'creates an article entry' do
-      post '/api/v1/articles', params: {
-        article: { 
-          title: 'Gothenburg is great', 
-          ingress: 'According to many', 
-          body: 'Not many people really think that Stockholm is a better place to live in', 
-          image: 'https://assets.craftacademy.se/images/people/students_group.png',
-          written_by: 'Steffe Karlberg'
-        }
-      }, headers: headers
+    describe 'successfully' do
+      before do
+        post '/api/v1/articles', params: {
+          article: { 
+            title: 'Gothenburg is great', 
+            ingress: 'According to many', 
+            body: 'Not many people really think that Stockholm is a better place to live in', 
+            image: 'https://assets.craftacademy.se/images/people/students_group.png',
+            written_by: 'Steffe Karlberg'
+          }
+        }, headers: headers
+      end
 
-      expect(json_response['message']).to eq 'Successfully created'
-      expect(response.status).to eq 200
+      it 'creates an article entry' do
+        expect(json_response['message']).to eq 'Successfully created'
+      end
+
+      it 'send back into the response the newly created article information' do
+        article = Article.last
+        expect(json_response['article_id']).to eq article.id
+      end
     end
+  end
 
-    it 'can not be created without all fields filled in' do
-      post '/api/v1/articles', params: {
-        article: {
-          title: "Stockolm is not too bad",
-          written_by: 'Steffe Karlberg'
-        }
-      }, headers: headers
+  describe 'POST /api/v1/articles' do
+    describe 'unsuccessfully' do
+
+      it 'can not be created without all fields filled in' do
+        post '/api/v1/articles', params: {
+          article: {
+            title: "Stockolm is not too bad",
+            written_by: 'Steffe Karlberg'
+         }
+        }, headers: headers
       
-      expect(json_response['error']).to eq ["Ingress can't be blank", "Body can't be blank", "Image can't be blank"]
-      expect(response.status).to eq 422
+        expect(json_response['error']).to eq ["Ingress can't be blank", "Body can't be blank", "Image can't be blank"]
+      end
     end
-
   end
 end
