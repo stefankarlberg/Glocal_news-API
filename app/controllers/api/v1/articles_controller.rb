@@ -8,7 +8,7 @@ class Api::V1::ArticlesController < ApplicationController
   def create
     article = Article.create(article_params)
     if article.persisted?
-      render json: { message: 'Successfully created', data: article.id }
+      render json: { message: 'Successfully created', article_id: article.id }
     else
       render status: 422, json: { error: article.errors.full_messages }
     end
