@@ -49,12 +49,11 @@ RSpec.describe Api::V1::ArticlesController, type: :request do
 
     it 'creates an article entry' do
       expect(json_response['message']).to eq 'Successfully created'
-      expect(response.status).to eq 200
     end
 
     it 'send back into the response the newly created article information' do
-      expect(json_response['data']).to eq ''
-      expect(response.status).to eq 200
+      article = Article.last
+      expect(json_response['data']).to eq article.id
     end
 
     it 'can not be created without all fields filled in' do
