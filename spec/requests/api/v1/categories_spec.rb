@@ -10,8 +10,9 @@ RSpec.describe Api::V1::CategoriesController, type: :request do
 
     it 'returns a collection of categories' do
       get '/api/v1/categories', headers: headers
-      expect(json_response['entries'].count).to eq 5
+      expect(json_response['data'].length).to eq 5
     end
+    
 
     it 'returns 200 response' do
       get '/api/v1/categories', headers: headers
