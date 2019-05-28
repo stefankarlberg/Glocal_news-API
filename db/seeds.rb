@@ -10,7 +10,7 @@ category_list = [
   "Style",
   "Food",
   "Travel",
-  "Real State"
+  "Real Estate"
 ]
 
 category_list.each do |name|

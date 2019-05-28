@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe Category, type: :model do
   describe 'Database table' do
     it { is_expected.to have_db_column :name }
@@ -18,5 +16,4 @@ RSpec.describe Category, type: :model do
       expect(FactoryBot.create(:category)).to be_valid
     end
   end
-
 end

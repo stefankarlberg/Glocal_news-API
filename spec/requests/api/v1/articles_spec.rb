@@ -60,6 +60,12 @@ RSpec.describe Api::V1::ArticlesController, type: :request do
       
       expect(json_response['error']).to eq ["Category must exist", "Ingress can't be blank", "Body can't be blank", "Image can't be blank", "Category can't be blank"]
       expect(response.status).to eq 422
-    end
+      end
+
+      it 'send back into the response the newly created article information' do
+        article = Article.last
+        expect(json_response['article_id']).to eq article.id
+      end
+
   end
 end
