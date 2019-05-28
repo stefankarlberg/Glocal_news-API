@@ -25,7 +25,7 @@ RSpec.describe Api::V1::CategoriesController, type: :request do
 
     it 'returns a collection of categories' do
       get '/api/v1/categories', headers: headers
-      expect(json_response['data'].length).to eq 12
+      expect(json_response['categories'].length).to eq 12
     end
     
 
