@@ -16,6 +16,10 @@ RSpec.describe Article, type: :model do
     it { is_expected.to validate_presence_of(:written_by) }
   end
 
+  describe 'Relations' do
+    it { is_expected.to have_many :reviews }
+  end
+
   describe 'Factory' do
     it 'should have valid factory' do
       expect(FactoryBot.create(:article)).to be_valid
