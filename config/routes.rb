@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     end
     namespace :v1 do
       resources :articles, only: [:index, :create, :show]
+      resources :categories, only: [:index]
     end
   end
 end

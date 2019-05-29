@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe Api::V1::ArticlesController, type: :request do
   let(:headers) { { HTTP_ACCEPT: 'application/json' } }
 
@@ -10,7 +8,7 @@ RSpec.describe Api::V1::ArticlesController, type: :request do
 
     it 'returns a collection of articles' do
       get '/api/v1/articles', headers: headers
-      expect(json_response['data'].count).to eq 5
+      expect(json_response.count).to eq 5
     end
 
     it 'returns 200 response' do
@@ -36,26 +34,30 @@ RSpec.describe Api::V1::ArticlesController, type: :request do
 
   describe 'POST /api/v1/articles' do
     describe 'successfully' do
+      let(:category) { FactoryBot.create(:category) }
+      
       before do
         post '/api/v1/articles', params: {
-          article: { 
-            title: 'Gothenburg is great', 
-            ingress: 'According to many', 
-            body: 'Not many people really think that Stockholm is a better place to live in', 
+          article: {
+            title: 'Gothenburg is great',
+            ingress: 'According to many',
+            body: 'Not many people really think that Stockholm is a better place to live in',
             image: 'https://assets.craftacademy.se/images/people/students_group.png',
-            written_by: 'Steffe Karlberg'
-          }
+            written_by: 'Steffe Karlberg',
+            category_id: category.id
+            }
         }, headers: headers
-      end
+        end
 
-      it 'creates an article entry' do
-        expect(json_response['message']).to eq 'Successfully created'
-      end
+        it 'creates an article entry' do
+          expect(json_response['message']).to eq 'Successfully created'
+          expect(response.status).to eq 200
+        end
 
-      it 'send back into the response the newly created article information' do
-        article = Article.last
-        expect(json_response['article_id']).to eq article.id
-      end
+        it 'sends back into the response the newly created article information' do
+          article = Article.last
+          expect(json_response['article_id']).to eq article.id
+        end  
     end
   end
 
@@ -66,11 +68,12 @@ RSpec.describe Api::V1::ArticlesController, type: :request do
         post '/api/v1/articles', params: {
           article: {
             title: "Stockolm is not too bad",
-            written_by: 'Steffe Karlberg'
-         }
+            written_by: 'Steffe Karlberg',
+          }
         }, headers: headers
-      
-        expect(json_response['error']).to eq ["Ingress can't be blank", "Body can't be blank", "Image can't be blank"]
+
+        expect(json_response['error']).to eq ["Category must exist", "Ingress can't be blank", "Body can't be blank", "Image can't be blank", "Category can't be blank"]
+        expect(response.status).to eq 422
       end
     end
   end
