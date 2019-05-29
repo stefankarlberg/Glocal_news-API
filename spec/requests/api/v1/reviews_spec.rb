@@ -79,5 +79,20 @@ RSpec.describe Api::V1::ReviewsController, type: :request do
 
     end
     
+    describe 'can not leave review if article is published' do
+      before do
+        article.update(published: true)
+        post "/api/v1/articles/"+"#{article.id}"+"/reviews", params: {
+          review: {
+            score: 8,
+            comment: "Good article, well done!"
+          }
+        }, headers: headers
+      end
+
+      it 'renders error message' do
+        expect(json_response['error']).to eq 'Article is not up for review'
+      end
+    end
   end
 end
