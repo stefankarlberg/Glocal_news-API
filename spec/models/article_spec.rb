@@ -9,6 +9,8 @@ RSpec.describe Article, type: :model do
     it { is_expected.to have_db_column :image }
     it { is_expected.to have_db_column :written_by }
     it { is_expected.to have_db_column :category_id }
+    it { is_expected.to have_db_column :country }
+    it { is_expected.to have_db_column :city }
   end
 
   describe 'Validations' do 
@@ -18,6 +20,8 @@ RSpec.describe Article, type: :model do
     it { is_expected.to validate_presence_of(:image) }
     it { is_expected.to validate_presence_of(:written_by) }
     it { is_expected.to validate_presence_of(:category_id) }
+    it { is_expected.to validate_presence_of(:country) }
+    it { is_expected.to validate_presence_of(:city) }
   end
 
   describe 'Relations' do

@@ -44,7 +44,9 @@ RSpec.describe Api::V1::ArticlesController, type: :request do
             body: 'Not many people really think that Stockholm is a better place to live in',
             image: 'https://assets.craftacademy.se/images/people/students_group.png',
             written_by: 'Steffe Karlberg',
-            category_id: category.id
+            category_id: category.id,
+            country: "Sweden",
+            city: "Gothenburg"
             }
         }, headers: headers
         end
