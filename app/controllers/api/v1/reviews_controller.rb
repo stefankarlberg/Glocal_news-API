@@ -1,4 +1,6 @@
 class Api::V1::ReviewsController < ApplicationController
+  after_action :publish?, only: :create
+
 
   def create
     article = Article.find(params[:article_id])
@@ -13,5 +15,12 @@ class Api::V1::ReviewsController < ApplicationController
   private
     def review_params
       params.require(:review).permit(:score, :comment)
+    end
+
+    def publish?
+      article = Article.find(params[:article_id])
+      if article.reviews.count >= 3
+        article.update(published: :true)
+      end
     end
 end
