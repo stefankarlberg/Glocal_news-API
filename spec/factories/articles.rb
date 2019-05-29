@@ -5,5 +5,6 @@ FactoryBot.define do
     body { "MyText" }
     image { "MyString" }
     written_by { "Steffe Karlberg" }
+    association :category
   end
 end

@@ -24,6 +24,14 @@ ActiveRecord::Schema.define(version: 2019_05_29_123136) do
     t.datetime "updated_at", null: false
     t.string "written_by"
     t.boolean "published", default: false
+    t.bigint "category_id"
+    t.index ["category_id"], name: "index_articles_on_category_id"
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -35,5 +43,6 @@ ActiveRecord::Schema.define(version: 2019_05_29_123136) do
     t.index ["article_id"], name: "index_reviews_on_article_id"
   end
 
+  add_foreign_key "articles", "categories"
   add_foreign_key "reviews", "articles"
 end
