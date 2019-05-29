@@ -20,6 +20,10 @@ RSpec.describe Article, type: :model do
     it { is_expected.to validate_presence_of(:category_id) }
   end
 
+  describe 'Relations' do
+    it { is_expected.to have_many :reviews }
+  end
+
   describe 'Association' do
     it { is_expected.to belong_to(:category) }
   end
