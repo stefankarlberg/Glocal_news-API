@@ -76,7 +76,6 @@ RSpec.describe Api::V1::ReviewsController, type: :request do
       it 'does not publish article' do
         expect(article.published).to eq false
       end
-
     end
     
     describe 'can not leave review if article is published' do
