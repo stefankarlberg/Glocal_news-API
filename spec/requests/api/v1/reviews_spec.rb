@@ -61,5 +61,23 @@ RSpec.describe Api::V1::ReviewsController, type: :request do
       end
     end
 
-  end 
+    describe 'more than 3 reviews but not high enough average score' do
+      before do
+        2.times { FactoryBot.create(:review, article_id: article.id, score: 1) }
+        post "/api/v1/articles/"+"#{article.id}"+"/reviews", params: {
+          review: { 
+            score: 4, 
+            comment: "You got a lot of typos but apart from that it's a good article :P"
+          }
+        }, headers: headers
+        article.reload
+      end
+
+      it 'does not publish article' do
+        expect(article.published).to eq false
+      end
+
+    end
+    
+  end
 end
