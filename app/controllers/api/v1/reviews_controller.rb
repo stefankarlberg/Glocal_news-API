@@ -1,5 +1,5 @@
 class Api::V1::ReviewsController < ApplicationController
-  after_action :publish?, only: :create
+  after_action :publish_article, only: :create
 
 
   def create
@@ -17,10 +17,13 @@ class Api::V1::ReviewsController < ApplicationController
       params.require(:review).permit(:score, :comment)
     end
 
-    def publish?
+    def publish_article
       article = Article.find(params[:article_id])
       if article.reviews.count >= 3
+        average_score = article.reviews.sum(&:score)/article.reviews.count.to_f
+        if average_score >= 6
         article.update(published: :true)
       end
     end
+  end
 end
