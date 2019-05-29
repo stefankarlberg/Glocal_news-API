@@ -74,7 +74,7 @@ RSpec.describe Api::V1::ArticlesController, type: :request do
           }
         }, headers: headers
 
-        expect(json_response['error']).to eq ["Category must exist", "Ingress can't be blank", "Body can't be blank", "Image can't be blank", "Category can't be blank"]
+        expect(json_response['error']).to eq ["Category must exist", "Ingress can't be blank", "Body can't be blank", "Image can't be blank", "Category can't be blank", "Country can't be blank", "City can't be blank"]
         expect(response.status).to eq 422
       end
     end
