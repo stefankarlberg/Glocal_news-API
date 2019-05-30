@@ -1,7 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::ReviewsController, type: :request do
-  let(:headers) { { HTTP_ACCEPT: 'application/json' } }
+  let(:user) { FactoryBot.create(:user) }
+  let(:credentials) { user.create_new_auth_token }
+  let(:headers) { { HTTP_ACCEPT: 'application/json' }.merge!(credentials) }
+  let(:not_headers) { {HTTP_ACCEPT: 'application/json'} }
   let(:article) { FactoryBot.create(:article) }
 
   describe 'POST /api/v1/articles/id/reviews' do
@@ -41,6 +44,11 @@ RSpec.describe Api::V1::ReviewsController, type: :request do
         }, headers: headers
       
         expect(json_response['error']).to eq ["Comment can't be blank"]
+      end
+
+      it 'can not be created if user is not logged in' do
+        post "/api/v1/articles/"+"#{article.id}"+"/reviews", headers: not_headers
+        expect(json_response['errors']).to eq ["You need to sign in or sign up before continuing."]
       end
     end
 
