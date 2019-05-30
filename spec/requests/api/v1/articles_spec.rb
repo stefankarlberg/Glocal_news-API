@@ -1,5 +1,8 @@
 RSpec.describe Api::V1::ArticlesController, type: :request do
-  let(:headers) { { HTTP_ACCEPT: 'application/json' } }
+  let(:user) { FactoryBot.create(:user) }
+  let(:credentials) { user.create_new_auth_token }
+  let(:headers) { { HTTP_ACCEPT: 'application/json' }.merge!(credentials) }
+  let(:not_headers) { {HTTP_ACCEPT: 'application/json'} }
 
   describe 'GET /api/v1/articles' do
     before do
@@ -19,6 +22,7 @@ RSpec.describe Api::V1::ArticlesController, type: :request do
 
   describe 'GET /api/v1/articles/id' do
     let(:article) { FactoryBot.create(:article)}
+
     before do
       get "/api/v1/articles/"+"#{article.id}", headers: headers
     end
@@ -30,12 +34,18 @@ RSpec.describe Api::V1::ArticlesController, type: :request do
     it 'returns 200 response' do
       expect(response.status).to eq 200
     end
+
+    it 'does not return a full article if user is not logged in' do
+      get "/api/v1/articles/"+"#{article.id}", headers: not_headers
+      expect(json_response['errors']).to eq ["You need to sign in or sign up before continuing."]
+    end
   end
 
   describe 'POST /api/v1/articles' do
+
     describe 'successfully' do
       let(:category) { FactoryBot.create(:category) }
-      
+  
       before do
         post '/api/v1/articles', params: {
           article: {
@@ -74,6 +84,11 @@ RSpec.describe Api::V1::ArticlesController, type: :request do
 
         expect(json_response['error']).to eq ["Category must exist", "Ingress can't be blank", "Body can't be blank", "Image can't be blank", "Category can't be blank"]
         expect(response.status).to eq 422
+      end
+
+      it 'can not be created if user is not logged in' do
+        post "/api/v1/articles", headers: not_headers
+        expect(json_response['errors']).to eq ["You need to sign in or sign up before continuing."]
       end
     end
   end
