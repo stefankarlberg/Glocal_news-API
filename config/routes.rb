@@ -9,6 +9,7 @@ Rails.application.routes.draw do
         resources :reviews, only: [:create]
       end
       resources :categories, only: [:index]
+      mount_devise_token_auth_for 'User', at: 'auth', skip: [:omniauth_callbacks]
     end
   end
 end
