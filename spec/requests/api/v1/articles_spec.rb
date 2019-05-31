@@ -49,12 +49,14 @@ RSpec.describe Api::V1::ArticlesController, type: :request do
       before do
         post "/api/v1/articles", params: {
           article: {
-            title: "Gothenburg is great",
-            ingress: "According to many",
-            body: "Not many people really think that Stockholm is a better place to live in",
-            image: "https://assets.craftacademy.se/images/people/students_group.png",
-            written_by: "Steffe Karlberg",
-            category_id: category.id
+            title: 'Gothenburg is great',
+            ingress: 'According to many',
+            body: 'Not many people really think that Stockholm is a better place to live in',
+            image: 'https://assets.craftacademy.se/images/people/students_group.png',
+            written_by: 'Steffe Karlberg',
+            category_id: category.id,
+            country: "Sweden",
+            city: "Gothenburg"
             }
         }, headers: headers
         end
@@ -82,7 +84,7 @@ RSpec.describe Api::V1::ArticlesController, type: :request do
           }
         }, headers: headers
 
-        expect(json_response["error"]).to eq ["Category must exist", "Ingress can't be blank", "Body can't be blank", "Image can't be blank", "Category can't be blank"]
+        expect(json_response['error']).to eq ["Category must exist", "Ingress can't be blank", "Body can't be blank", "Image can't be blank", "Category can't be blank", "Country can't be blank", "City can't be blank"]
         expect(response.status).to eq 422
       end
 

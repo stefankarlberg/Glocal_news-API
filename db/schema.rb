@@ -23,8 +23,10 @@ ActiveRecord::Schema.define(version: 2019_05_30_094340) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "written_by"
-    t.boolean "published", default: false
     t.bigint "category_id"
+    t.boolean "published", default: false
+    t.string "country"
+    t.string "city"
     t.index ["category_id"], name: "index_articles_on_category_id"
   end
 
