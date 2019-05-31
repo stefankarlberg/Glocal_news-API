@@ -1,4 +1,5 @@
 class Api::V1::ArticlesController < ApplicationController
+  before_action :authenticate_api_v1_user!, only: [:create, :show]
 
   def index
     articles = Article.all

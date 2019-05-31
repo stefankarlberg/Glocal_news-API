@@ -1,6 +1,7 @@
 class Api::V1::ReviewsController < ApplicationController
+  before_action :authenticate_api_v1_user!, only: [:create]
   after_action :publish_article, only: :create
-
+  
   def create
     article = Article.find(params[:article_id])
     if article.published === false
