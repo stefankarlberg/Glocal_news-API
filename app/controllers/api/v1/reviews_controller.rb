@@ -9,7 +9,7 @@ class Api::V1::ReviewsController < ApplicationController
       if review.persisted?
         render json: { message: 'Successfully created', review_id: review.id, score: review.score, comment: review.comment }
       else
-        render json: { error: review.errors.full_messages }
+        render json: { error: review.errors.full_messages }, status: 400
       end
     else
       render json: { error: 'Article is not up for review' }, status: 400
