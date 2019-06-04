@@ -50,8 +50,8 @@ RSpec.describe Api::V1::ArticlesController, type: :request do
         post "/api/v1/articles", params: {
           article: {
             title: 'Gothenburg is great',
-            ingress: 'According to many',
-            body: 'Not many people really think that Stockholm is a better place to live in',
+            ingress: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris',
+            body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris',
             image: 'https://assets.craftacademy.se/images/people/students_group.png',
             written_by: 'Steffe Karlberg',
             category_id: category.id,
@@ -84,7 +84,8 @@ RSpec.describe Api::V1::ArticlesController, type: :request do
           }
         }, headers: headers
 
-        expect(json_response['error']).to eq ["Category must exist", "Ingress can't be blank", "Body can't be blank", "Image can't be blank", "Category can't be blank", "Country can't be blank", "City can't be blank"]
+        expect(json_response['error']).to eq ["Category must exist", "Ingress can't be blank", "Ingress is too short (minimum is 50 characters)", "Body can't be blank", "Body is too short (minimum is 1000 characters)", "Image can't be blank", "Category can't be blank", "Country can't be blank", "City can't be blank"]
+
         expect(response.status).to eq 422
       end
 

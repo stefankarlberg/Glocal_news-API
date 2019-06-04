@@ -22,6 +22,9 @@ RSpec.describe Article, type: :model do
     it { is_expected.to validate_presence_of(:category_id) }
     it { is_expected.to validate_presence_of(:country) }
     it { is_expected.to validate_presence_of(:city) }
+    it { is_expected.to validate_length_of(:title) }
+    it { is_expected.to validate_length_of(:ingress) }
+    it { is_expected.to validate_length_of(:body) }
   end
 
   describe 'Relations' do
